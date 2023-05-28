@@ -30,7 +30,7 @@ namespace passwords
 
 
 
-            //Console.WriteLine(args.Length);
+            Console.WriteLine(args.Length);
             for (int i = 0; i < args.Length; i++)
             {
                 if ((i == 0) && (int.TryParse(args[i], out int x) == true))
@@ -42,7 +42,7 @@ namespace passwords
 
                 else if (args[i][0] == '-')
                 {
-                    //Console.WriteLine("hello");
+                    //Console.WriteLine(args[i][1]);
                     switch (args[i][1])
                     {
                         case '-':
@@ -50,7 +50,7 @@ namespace passwords
                             command = args[i].Split('=');
                             if ((command.Length == 2) || (args.Length == 1) || (command[0] == "--uppercase") || (command[0] == "--special"))
                             {
-                                //Console.WriteLine("hello2");
+                                Console.WriteLine("hello2" + " " + mistake);
                                 switch (command[0])
                                 {
                                     case "--length":
@@ -89,7 +89,7 @@ namespace passwords
                             break;
 
                         case 'u':
-
+                            Console.WriteLine("kkk");
                             //Console.WriteLine(args[i].Length);
                             //Console.WriteLine(i);
                             if (args[i].Length == 2)
@@ -110,7 +110,7 @@ namespace passwords
                             break;
 
                         default:
-                            //Console.WriteLine(i);
+                            Console.WriteLine("kkk");
                             Console.WriteLine("you made a mistake");
                             mistake = true;
                             break;
@@ -121,77 +121,70 @@ namespace passwords
 
             }
 
-            //Console.WriteLine(special);
-            //Console.WriteLine("" + length  + " " + uppercase + "" +  special +" " +  digits + " " + letters);
+            Console.WriteLine(mistake);
+            
             if (dig_index > let_index) digits = 0;
             else letters = 0;
-            //Console.WriteLine("" + length + " " + uppercase + "" + special + " " + digits + " " + letters);
+            Console.WriteLine("" + length + " " + uppercase + "" + special + " " + digits + " " + letters);
+
+            if (uppercase && letters <= 0) mistake = true;
 
             if ((digits > length) || (letters > length)) length = digits > letters ? digits : letters;
 
-            int[] counts = { digits, letters };
+            
 
+            List<char> components = new List<char>();
             if (!mistake)
             {
+                int len = length;
                 //Console.WriteLine(111111);
-                List<char> components = new List<char>();
-
-
-                for (int i = 0; i < digits; i++)
+                for (int i = 0; i < length; i++)
                 {
-                    components.Add(GetDigit());
-                }
-                //Console.WriteLine(uppercase + " " + letters);
-                //for(int i = 65; i < 123; i++) Console.WriteLine((char)i);
 
-
-                if ((uppercase) && (letters > 0))
-                {
-                    for (int j = 0; j < letters; j++)
+                    if (len > 0)
                     {
-                        components.Add(GetAnyLetter());
-                        //Console.WriteLine("u");
+                        if (digits > 0) components.Add(GetDigit());
+                        if ((letters > 0))
+                        {
+                            if (uppercase) components.Add(GetAnyLetter());
+                            else components.Add(GetLowLetter());
+                        }
+                        if (special) components.Add(GetSpecial());
+                        len--;
+
+                    }
+
+                    else
+                    {
+                        if (digits == 0 && letters < length) components.Add(GetDigit());
+                        else if (letters == 0 && digits < length) components.Add(GetAnyLetter());
+
+                        components.Add(GetExtra(uppercase, special));
                     }
                 }
-
-
-                //if (uppercase == true) components.Add(GetHighLetter());
-
-                if (special == true) components.Add(GetSpecial());
-
-
-                int z = uppercase ? 1 : 0;
-                int y = special ? 1 : 0;
-
-
-                //while (components.Count < length) { components.Add(GetRandomSymbol(length - digits - letters - z - y, digits, letters, uppercase, special)); }
-                while (components.Count < length) { components.Add(GetExtra(uppercase, special)); }
-                //for (int i = 0; i < components.Count; i++) { Console.WriteLine(components[i]); }
-
-
-                for (int i = components.Count - 1; i >= 1; i--)
-                {
-                    int j = rand.Next(i + 1);
-                    char tmp = components[j];
-                    components[j] = components[i];
-                    components[i] = tmp;
-                }
-
-                //string Password = "";
-                for (int i = 0; i < components.Count; i++)
-                {
-                    Password += components[i];
-                }
-
+                
             }
-            else
+            else Console.WriteLine("You Made  a mistake");
+            
+            
+            //for (int i = 0; i < components.Count; i++) { Console.WriteLine(components[i]); }
+
+
+            for (int i = components.Count - 1; i >= 1; i--)
             {
-                Console.WriteLine("You Made  a mistake");
+                int j = rand.Next(i + 1);
+                char tmp = components[j];
+                components[j] = components[i];
+                components[i] = tmp;
+            }
+
+            //string Password = "";
+            for (int i = 0; i < components.Count; i++)
+            {
+                Password += components[i];
             }
             Console.WriteLine(Password);
             Console.ReadLine();
-
-
 
 
         }
@@ -246,7 +239,7 @@ namespace passwords
 
         static char GetExtra(bool uppercase, bool special)
         {
-            if ((!uppercase) && (!special))
+            if ((uppercase) && (special))
             {
 
                 switch (rand.Next() % 3)
@@ -278,9 +271,10 @@ namespace passwords
                     case 0:
                         return GetDigit();
                     case 1:
-                        return GetLowLetter();
+                        return GetAnyLetter();
                 }
             }
+       
             else
             {
                 switch (rand.Next() % 2)
