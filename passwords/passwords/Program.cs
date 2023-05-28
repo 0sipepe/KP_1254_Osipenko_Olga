@@ -141,25 +141,27 @@ namespace passwords
                 for (int i = 0; i < length; i++)
                 {
 
-                    if (len > 0)
+                    if ((special) || (digits > 0) || (letters > 0))
                     {
-                        if (digits > 0) components.Add(GetDigit());
+                        if (digits > 0) { components.Add(GetDigit()); digits--; }
                         if ((letters > 0))
                         {
                             if (uppercase) components.Add(GetAnyLetter());
                             else components.Add(GetLowLetter());
+                            letters--;
                         }
                         if (special) components.Add(GetSpecial());
-                        len--;
+ 
 
                     }
 
                     else
                     {
-                        if (digits == 0 && letters < length) components.Add(GetDigit());
-                        else if (letters == 0 && digits < length) components.Add(GetAnyLetter());
+                        Console.WriteLine("aaaa");
+                            if (digits == 0 && letters < length) components.Add(GetDigit());
+                            else if (letters == 0 && digits < length) components.Add(GetAnyLetter());
 
-                        components.Add(GetExtra(uppercase, special));
+                            components.Add(GetExtra(uppercase, special));
                     }
                 }
                 
