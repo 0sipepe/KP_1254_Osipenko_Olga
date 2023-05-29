@@ -46,7 +46,7 @@
             this.btnEncrypt.Name = "btnEncrypt";
             this.btnEncrypt.Size = new System.Drawing.Size(437, 41);
             this.btnEncrypt.TabIndex = 0;
-            this.btnEncrypt.Text = "button1";
+            this.btnEncrypt.Text = "зашифровать";
             this.btnEncrypt.UseVisualStyleBackColor = true;
             this.btnEncrypt.Click += new System.EventHandler(this.btnEncrypt_Click);
             // 
@@ -66,6 +66,7 @@
             // 
             // tbText
             // 
+            this.tbText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbText.Location = new System.Drawing.Point(16, 29);
             this.tbText.Multiline = true;
             this.tbText.Name = "tbText";
@@ -87,7 +88,7 @@
             this.btnDecrypt.Name = "btnDecrypt";
             this.btnDecrypt.Size = new System.Drawing.Size(437, 41);
             this.btnDecrypt.TabIndex = 4;
-            this.btnDecrypt.Text = "button2";
+            this.btnDecrypt.Text = "расшифровать";
             this.btnDecrypt.UseVisualStyleBackColor = true;
             this.btnDecrypt.Click += new System.EventHandler(this.btnDecrypt_Click);
             // 
@@ -121,7 +122,7 @@
             this.btnAddCommand.Name = "btnAddCommand";
             this.btnAddCommand.Size = new System.Drawing.Size(63, 44);
             this.btnAddCommand.TabIndex = 8;
-            this.btnAddCommand.Text = "button3";
+            this.btnAddCommand.Text = "+ ";
             this.btnAddCommand.UseVisualStyleBackColor = true;
             this.btnAddCommand.Click += new System.EventHandler(this.btnAddCommand_Click);
             // 
@@ -131,7 +132,7 @@
             this.btnRemoveCommand.Name = "btnRemoveCommand";
             this.btnRemoveCommand.Size = new System.Drawing.Size(63, 40);
             this.btnRemoveCommand.TabIndex = 9;
-            this.btnRemoveCommand.Text = "button4";
+            this.btnRemoveCommand.Text = "-";
             this.btnRemoveCommand.UseVisualStyleBackColor = true;
             this.btnRemoveCommand.Click += new System.EventHandler(this.btnRemoveCommand_Click);
             // 
